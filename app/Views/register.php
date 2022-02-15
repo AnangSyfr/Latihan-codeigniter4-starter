@@ -14,7 +14,12 @@
     <div class="container mt-5">
         <h3>Register User</h3>
         <br>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <?= csrf_field() ?>
+            <div class="form-group">
+                <label for="">Foto</label>
+                <input type="file" name="foto">
+            </div>
             <div class="form-group">
                 <label for="">Username</label>
                 <input type="text" class="form-control" name="username">

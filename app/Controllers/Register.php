@@ -17,16 +17,20 @@ class Register extends BaseController
         $validation = Services::validation();
         $validation->setRules([
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ]);
         $isValid = $validation->withRequest($this->request)->run();
         if($isValid){
-            $data = [
-                'username' => $this->request->getPost('username'),
-                'password' => password_hash($this->request->getPost('password'),PASSWORD_DEFAULT)
-            ];
-            $this->users->insert($data);
-            return redirect('login');
+            $dataFoto = $this->request->getFile('foto');
+            $fileName = $dataFoto->getRandomName();
+            echo $dataFoto->move('uploads/foto' ,$fileName);
+            // $data = [
+            //     'username' => $this->request->getPost('username'),
+            //     'password' => password_hash($this->request->getPost('password'),PASSWORD_DEFAULT),
+            //     'foto' => $fileName
+            // ];
+            // $this->users->insert($data);
+            //return redirect('login');
         }
         return view('register');
     }
